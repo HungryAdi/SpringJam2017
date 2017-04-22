@@ -9,6 +9,8 @@ public class Timer : MonoBehaviour
     public GameObject player;
     //The finish point
     public GameObject finishPoint;
+    //The menu
+    public GameObject failedLevel;
 
     //The number of seconds the player has to complete the level
     public float secondsToComplete;
@@ -16,6 +18,7 @@ public class Timer : MonoBehaviour
 	// Use this for initialization
 	void Start ()
     {
+        //Debug stuff...
 		if ( player.GetComponent<PlayerController>() == null)
         {
             Debug.Log("Timer script lacks a player with PlayerController");
@@ -30,7 +33,7 @@ public class Timer : MonoBehaviour
         {
             Debug.Log("Timer script needs to be attached to an object with Text (UI)");
         }
-	}
+    }
 	
 	// Update is called once per frame
 	void Update ()
@@ -41,6 +44,7 @@ public class Timer : MonoBehaviour
             player.GetComponent<PlayerController>().enabled = false;
             finishPoint.GetComponent<FinishPoint>().enabled = false;
             gameObject.GetComponent<Text>().text = "00:00";
+            failedLevel.SetActive(true);
             Debug.Log("Level failed");
             this.enabled = false;
         }
