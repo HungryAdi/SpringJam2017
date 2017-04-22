@@ -76,6 +76,6 @@ public class PlayerController : MonoBehaviour
     //Switches the player's animation when the game is over
     public void GameOver()
     {
-
+        anim.SetBool("GameOver", true);
     }
 }
