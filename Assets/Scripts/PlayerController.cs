@@ -72,4 +72,10 @@ public class PlayerController : MonoBehaviour
         rBody.MovePosition( transform.position + (Vector3.right * horizSpeed) * Time.deltaTime );
         rBody.velocity = rBody.velocity + Vector3.up * vertSpeed;
     }
+
+    //Switches the player's animation when the game is over
+    public void GameOver()
+    {
+
+    }
 }
