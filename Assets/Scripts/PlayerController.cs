@@ -59,7 +59,6 @@ public class PlayerController : MonoBehaviour
         else if (vertical <= 0.1 && Physics.Raycast(transform.position, Vector3.down, 0.75F))
         {
             anim.SetBool("isJumping", false);
-            Debug.Log("isNotJumping");
             boxCollider.size = new Vector3(boxCollider.size.x, 1.0f, boxCollider.size.z);
             boxCollider.center = new Vector3(0.0f, 0.0f, 0.0f);
             rBody.MovePosition(transform.position + (Vector3.right * horizSpeed) * Time.deltaTime);
@@ -67,7 +66,6 @@ public class PlayerController : MonoBehaviour
         else
         {
             //"Gravity" will take over, bringing the character back down.
-
             rBody.MovePosition( transform.position + (Vector3.right * horizSpeed) * Time.deltaTime );
         }
     }
