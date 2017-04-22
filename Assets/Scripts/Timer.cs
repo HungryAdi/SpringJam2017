@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class Timer : MonoBehaviour
 {
     //The timer text
-    public GameObject timer;
+    //public GameObject timer;
     //The player
     public GameObject player;
 
@@ -21,9 +21,9 @@ public class Timer : MonoBehaviour
             Debug.Log("Timer script lacks a player with PlayerController");
         }
 
-        if ( timer.GetComponent<Text>() == null)
+        if ( gameObject.GetComponent<Text>() == null)
         {
-            Debug.Log("Timer script lacks a timer with Text (UI)");
+            Debug.Log("Timer script needs to be attached to an object with Text (UI)");
         }
 	}
 	
@@ -33,12 +33,14 @@ public class Timer : MonoBehaviour
 		if (secondsToComplete <= 0)
         {
             player.GetComponent<PlayerController>().enabled = false;
+            gameObject.GetComponent<Text>().text = "0";
             Debug.Log("Level failed");
+            this.enabled = false;
         }
         else
         {
             secondsToComplete -= Time.deltaTime;
-            timer.GetComponent<Text>().text = secondsToComplete.ToString();
+            gameObject.GetComponent<Text>().text = secondsToComplete.ToString();
         }
 	}
 }
