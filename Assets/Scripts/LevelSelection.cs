@@ -28,11 +28,19 @@ public class LevelSelection : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+        if(Input.GetKeyDown(KeyCode.Return) )
+        {
+            if(targetSelection == (int)Target.nerd)
+            { Navigator.Instance.LoadScene("Brett"); }
+            else if(targetSelection == (int)Target.cheerleader)
+            { }
+            else if (targetSelection == (int)Target.nerd)
+            { }
+        }
         if (targetSelection < ((int)Target.size - 1))
             highlightList[targetSelection].SetActive(false);
         if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
         {
-
             targetSelection = (int)Target.guard;
         }
         else if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow))
