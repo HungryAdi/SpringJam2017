@@ -26,6 +26,7 @@ public class FinishPoint : MonoBehaviour
     void OnTriggerEnter()
     {
         //Disables player movement and the timer countdown
+        player.GetComponent<PlayerController>().GameOver();
         player.GetComponent<PlayerController>().enabled = false;
         timer.GetComponent<Timer>().enabled = false;
         Debug.Log("Game Finished");

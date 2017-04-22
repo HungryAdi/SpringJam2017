@@ -37,6 +37,7 @@ public class Timer : MonoBehaviour
     {
 		if (secondsToComplete <= 0)
         {
+            player.GetComponent<PlayerController>().GameOver();
             player.GetComponent<PlayerController>().enabled = false;
             finishPoint.GetComponent<FinishPoint>().enabled = false;
             gameObject.GetComponent<Text>().text = "00:00";
