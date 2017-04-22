@@ -13,8 +13,6 @@ public class PlayerController : MonoBehaviour
 
     //Is the player jumping?
     private bool isJumping;
-    //Can the player jump?  (aka Is the player grounded?)
-    private bool canJump;
     //Keeps track of the position where the player's jump started - used for jump height
     private Vector3 jumpStart;
 
@@ -45,7 +43,6 @@ public class PlayerController : MonoBehaviour
                 isJumping = true;
                 jumpStart = transform.position;
                 Jump( jumpStart );
-                canJump = false;
             }
             //Player is not jumping
             else
