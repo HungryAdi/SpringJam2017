@@ -25,14 +25,18 @@ public class FinishPoint : MonoBehaviour
         }
 	}
 
-    void OnTriggerEnter()
+    void OnTriggerEnter(Collider other)
     {
-        //Disables player movement and the timer countdown
-        player.GetComponent<PlayerController>().GameOver();
-        player.GetComponent<PlayerController>().enabled = false;
-        timer.GetComponent<Timer>().enabled = false;
+        if (other.tag.Equals("Player"))
+        {
 
-        levelPassed.SetActive(true);
-        Debug.Log("Game Finished");
+            //Disables player movement and the timer countdown
+            player.GetComponent<PlayerController>().GameOver();
+            player.GetComponent<PlayerController>().enabled = false;
+            timer.GetComponent<Timer>().enabled = false;
+
+            levelPassed.SetActive(true);
+            Debug.Log("Game Finished");
+        }
     }
 }
