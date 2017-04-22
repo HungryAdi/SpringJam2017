@@ -33,7 +33,9 @@ public class LevelSelection : MonoBehaviour {
             if(targetSelection == (int)Target.nerd)
             { Navigator.Instance.LoadScene("Brett"); }
             else if(targetSelection == (int)Target.cheerleader)
-            { }
+            {
+                Navigator.Instance.LoadScene("Kaitlyn");
+            }
             else if (targetSelection == (int)Target.nerd)
             { }
         }
