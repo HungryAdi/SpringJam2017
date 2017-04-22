@@ -9,6 +9,7 @@ public class InGameMenuSelect : MonoBehaviour
     public GameObject[] menuOptions;
     //The strings of scenes the option will lead to
     public string[] scenes;
+    //Both need to be changed depending on the level
 
     private int menuOptionDex;
 
