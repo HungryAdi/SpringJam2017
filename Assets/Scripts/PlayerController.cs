@@ -22,6 +22,8 @@ public class PlayerController : MonoBehaviour
     private Rigidbody rBody;
     //Player's animator
     private Animator anim;
+    //Player's boxcollider
+    private BoxCollider boxCollider;
 
 	// Use this for initialization
 	void Start ()
@@ -29,6 +31,7 @@ public class PlayerController : MonoBehaviour
         charControl = gameObject.GetComponent<CharacterController>();
         rBody = gameObject.GetComponent<Rigidbody>();
         anim = gameObject.GetComponent<Animator>();
+        boxCollider = gameObject.GetComponent<BoxCollider>();
 	}
 	
 	// Update is called once per frame
@@ -47,6 +50,8 @@ public class PlayerController : MonoBehaviour
             //isJumping = true;
             anim.SetBool("isJumping", true);
             Debug.Log("isJumping");
+            boxCollider.size = new Vector3(boxCollider.size.x, .8f, boxCollider.size.z);
+            boxCollider.center = new Vector3(0.0f, 0.1f, 0.0f);
             jumpStart = transform.position;
             Jump( jumpStart );
         }
@@ -55,6 +60,8 @@ public class PlayerController : MonoBehaviour
         {
             anim.SetBool("isJumping", false);
             Debug.Log("isNotJumping");
+            boxCollider.size = new Vector3(boxCollider.size.x, 1.0f, boxCollider.size.z);
+            boxCollider.center = new Vector3(0.0f, 0.0f, 0.0f);
             rBody.MovePosition(transform.position + (Vector3.right * horizSpeed) * Time.deltaTime);
         }
         else
