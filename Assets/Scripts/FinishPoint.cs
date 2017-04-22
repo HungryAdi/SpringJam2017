@@ -8,6 +8,8 @@ public class FinishPoint : MonoBehaviour
     public GameObject player;
     //The timer object
     public GameObject timer;
+    //The level passed menu
+    public GameObject levelPassed;
 
 	// Use this for initialization
 	void Start ()
@@ -29,6 +31,8 @@ public class FinishPoint : MonoBehaviour
         player.GetComponent<PlayerController>().GameOver();
         player.GetComponent<PlayerController>().enabled = false;
         timer.GetComponent<Timer>().enabled = false;
+
+        levelPassed.SetActive(true);
         Debug.Log("Game Finished");
     }
 }
