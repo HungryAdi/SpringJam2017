@@ -9,11 +9,12 @@ public class PlayerController : MonoBehaviour
 
     //Is the player jumping?
     private bool isJumping;
-    //Can the player jump?
+    //Can the player jump?  (aka Is the player grounded?)
     private bool canJump;
     //Keeps track of the position where the player's jump started - used for jump height
     private Vector3 jumpStart;
 
+    //Use CharacterController?  Or Rigidbody for physics?
     private CharacterController charControl;
 
 	// Use this for initialization
@@ -33,7 +34,7 @@ public class PlayerController : MonoBehaviour
         float vertical = Input.GetAxis( "Vertical" );
         if ( !isJumping )
         {
-            //If player pressed jump key (up/w)
+            //If player pressed jump key (up/w) and is grounded
             if (vertical > 0.1 && canJump)
             {
                 Debug.Log( "jump" );
@@ -45,9 +46,10 @@ public class PlayerController : MonoBehaviour
             //Player is not jumping
             else
             {
+                //"Gravity" will take over, bringing the character back down.
                 charControl.Move(Vector3.down * Time.deltaTime);
 
-                if (Physics.Raycast(transform.position, Vector3.down, 1))
+                if (Physics.Raycast(transform.position, Vector3.down, 0.75F))
                 {
                     canJump = true;
                 }
