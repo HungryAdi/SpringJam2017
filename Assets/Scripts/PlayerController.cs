@@ -6,6 +6,10 @@ public class PlayerController : MonoBehaviour
 {
     //How high can the player jump?
     public float jumpHeight;
+    //How fast does the player move horizontally?
+    public float horizSpeed;
+    //How fast does the player move vertically?
+    public float vertSpeed;
 
     //Is the player jumping?
     private bool isJumping;
@@ -34,10 +38,10 @@ public class PlayerController : MonoBehaviour
         float vertical = Input.GetAxis( "Vertical" );
         if ( !isJumping )
         {
-            //If player pressed jump key (up/w) and is grounded
-            if (vertical > 0.1 && canJump)
+            //If player pressed jump key (up/w) and the player is grounded (Raycast checks if they are close enough to the ground)
+            if (vertical > 0.1 && Physics.Raycast(transform.position, Vector3.down, 0.75F))
             {
-                Debug.Log( "jump" );
+                //Debug.Log( "jump" );
                 isJumping = true;
                 jumpStart = transform.position;
                 Jump( jumpStart );
@@ -47,12 +51,7 @@ public class PlayerController : MonoBehaviour
             else
             {
                 //"Gravity" will take over, bringing the character back down.
-                charControl.Move(Vector3.down * Time.deltaTime);
-
-                if (Physics.Raycast(transform.position, Vector3.down, 0.75F))
-                {
-                    canJump = true;
-                }
+                charControl.Move( (Vector3.down * vertSpeed + Vector3.right * horizSpeed) * Time.deltaTime);
             }
         }
         else
@@ -67,7 +66,7 @@ public class PlayerController : MonoBehaviour
         //Once the player reaches the jump height, the player will come back down
         if (transform.position.y - start.y < jumpHeight)
         {
-            charControl.Move(Vector3.up * Time.deltaTime);
+            charControl.Move( (Vector3.up * vertSpeed + Vector3.right * horizSpeed) * Time.deltaTime);
         }
         else
         {
