@@ -20,12 +20,15 @@ public class PlayerController : MonoBehaviour
     private CharacterController charControl;
     //Player's rigidbody
     private Rigidbody rBody;
+    //Player's animator
+    private Animator anim;
 
 	// Use this for initialization
 	void Start ()
     {
         charControl = gameObject.GetComponent<CharacterController>();
         rBody = gameObject.GetComponent<Rigidbody>();
+        anim = gameObject.GetComponent<Animator>();
 	}
 	
 	// Update is called once per frame
@@ -42,10 +45,18 @@ public class PlayerController : MonoBehaviour
         {
             //Debug.Log( "jump" );
             //isJumping = true;
+            anim.SetBool("isJumping", true);
+            Debug.Log("isJumping");
             jumpStart = transform.position;
             Jump( jumpStart );
         }
         //Player is not jumping
+        else if (vertical <= 0.1 && Physics.Raycast(transform.position, Vector3.down, 0.75F))
+        {
+            anim.SetBool("isJumping", false);
+            Debug.Log("isNotJumping");
+            rBody.MovePosition(transform.position + (Vector3.right * horizSpeed) * Time.deltaTime);
+        }
         else
         {
             //"Gravity" will take over, bringing the character back down.
