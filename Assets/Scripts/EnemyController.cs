@@ -8,18 +8,23 @@ public class EnemyController : MonoBehaviour {
     private Rigidbody2D rbody;
     private SpriteRenderer sprite;
     private BoxCollider2D boxCollider;
+    public bool started = false;
 
 	// Use this for initialization
 	void Start () {
-        speed = 7f;
+        speed = 7.34f;
         rbody = gameObject.GetComponent<Rigidbody2D>();
         sprite = gameObject.GetComponent<SpriteRenderer>();
         boxCollider = gameObject.GetComponent<BoxCollider2D>();
+        StartCoroutine("countdownto3");
 	}
 	
 	// Update is called once per frame
 	void Update () {
-        MoveRight();
+        if (started)
+        {
+            MoveRight();
+        }
     }
 
     void MoveRight()
@@ -33,5 +38,11 @@ public class EnemyController : MonoBehaviour {
         {
             sprite.color = new Color(125, 125, 125, 125);
         } 
+    }
+
+    IEnumerator countdownto3()
+    {
+        yield return new WaitForSeconds(3f);
+        started = true;
     }
 }

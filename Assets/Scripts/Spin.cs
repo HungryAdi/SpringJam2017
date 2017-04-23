@@ -16,11 +16,14 @@ public class Spin : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        foreach(string item in xyz)
+        if (gameObject.GetComponent<SpriteRenderer>().isVisible)
         {
-            Debug.Log(item);
+            rotate();
         }
+    }
 
+    void rotate()
+    {
         if (clockwise)
         {
             if (xyz.Contains("x"))
@@ -53,6 +56,5 @@ public class Spin : MonoBehaviour {
                 transform.Rotate(new Vector3(0, 0, (speed * Time.deltaTime)));
             }
         }
-
     }
 }

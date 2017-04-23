@@ -25,6 +25,7 @@ public class PlayerController : MonoBehaviour
     //Player's boxcollider
     private BoxCollider2D boxCollider;
     private bool grounded;
+    public bool started = false;
 
     EdgeCollider2D rightEdge;
 
@@ -39,19 +40,23 @@ public class PlayerController : MonoBehaviour
         boxCollider = gameObject.GetComponent<BoxCollider2D>();
         vertical = 0;
         horizSpeed = 7f;
-
+        anim.SetBool("started", false);
+        StartCoroutine("countdownto3");
     }
 
     // Update is called once per frame
     private void FixedUpdate()
     {
-        MovePlayer();
+        if (started)
+        {
+            MovePlayer();
+        }
     }
 
     void MovePlayer()
     {
         Vector2 boxColliderEnd = boxCollider.bounds.size / 1.99999F;
-        Debug.DrawRay((Vector2)transform.position + boxColliderEnd, Vector2.right);
+        //Debug.DrawRay((Vector2)transform.position + boxColliderEnd, Vector2.right);
         if (Physics2D.Raycast((Vector2)transform.position + boxColliderEnd, Vector2.right, 0.75F).collider != null)
         {
             rBody.velocity = new Vector2(0, rBody.velocity.y);
@@ -107,7 +112,7 @@ public class PlayerController : MonoBehaviour
     {
         //Debug.Log("JUMPING");
         //rBody.MovePosition(transform.position + (Vector3.right * horizSpeed) * Time.deltaTime );
-        rBody.AddForce(new Vector2(0, 180));  //180
+        rBody.AddForce(new Vector2(0, 200));  //180
     }
 
     //Switches the player's animation when the game is over
@@ -132,5 +137,14 @@ public class PlayerController : MonoBehaviour
         yield return new WaitForSeconds(0.75f);
         anim.SetBool("damaged", false);
         horizSpeed = 7f;
+    }
+
+    IEnumerator countdownto3()
+    {
+        yield return new WaitForSeconds(3f);
+        started = true;
+        anim.SetBool("started", true);
+        yield return new WaitForSeconds(0.5f);
+        GameObject.Find("CountdownAnim").SetActive(false);
     }
 }
