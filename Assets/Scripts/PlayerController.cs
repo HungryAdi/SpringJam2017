@@ -36,6 +36,7 @@ public class PlayerController : MonoBehaviour
         anim = gameObject.GetComponent<Animator>();
         boxCollider = gameObject.GetComponent<BoxCollider2D>();
         vertical = 0;
+        horizSpeed = 4f;
 
     }
 
@@ -47,7 +48,7 @@ public class PlayerController : MonoBehaviour
 
     void MovePlayer()
     {
-        rBody.velocity = new Vector2(4f, rBody.velocity.y);
+        rBody.velocity = new Vector2(horizSpeed, rBody.velocity.y);
         //Debug.Log(Physics2D.Raycast((Vector2)transform.position, Vector2.down, 0.1F).collider.gameObject);
         if (Physics2D.Raycast((Vector2)transform.position, Vector2.down, 0.75F).collider == null)
             Debug.Log("RAWR");
@@ -100,6 +101,7 @@ public class PlayerController : MonoBehaviour
         {
             Debug.Log("DAMAGED");
             anim.SetBool("damaged", true);
+            horizSpeed = 2.5f;
             StartCoroutine("damageEnd");
         }
     }
@@ -108,5 +110,6 @@ public class PlayerController : MonoBehaviour
     {
         yield return new WaitForSeconds(0.75f);
         anim.SetBool("damaged", false);
+        horizSpeed = 4f;
     }
 }
