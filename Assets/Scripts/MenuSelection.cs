@@ -8,6 +8,10 @@ public class MenuSelection : MonoBehaviour {
     GameObject leaderboardPanel;
     int selectionTarget = 0;
     int selectionTarget2 = 0;
+    string playerName, hiScore;
+
+    int p1, p2, p3, p4, p5 = 0;
+    
 
     // Use this for initialization
     void Start () {
@@ -41,7 +45,8 @@ public class MenuSelection : MonoBehaviour {
                 }
                 else if (selectionTarget2 == 1)
                 {
-                    Debug.Log("Reset Leaderboard in construction...");
+                    HighScore.Instance.ResetScore();
+                    RefreshScore();
                 }
             }
             if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow))
@@ -64,15 +69,12 @@ public class MenuSelection : MonoBehaviour {
                 else if (selectionTarget == 1)
                 {
                     leaderboardPanel.SetActive(true);
-                    for(int i=0; i<5; i++)
-                    {
-                        GameObject.Find("Player" + (i+1) + "Score").GetComponent<UnityEngine.UI.Text>().text
-                            = HighScore.Instance.hiScores[i].ToString();
-                    }
+                    RefreshScore();
                     
                 }
                 else if (selectionTarget == 2)
                 {
+                    HighScore.Instance.SaveScore();
                     Navigator.Instance.LoadScene("Quit");
                 }
             }
@@ -88,5 +90,63 @@ public class MenuSelection : MonoBehaviour {
 
         mainMenuButtons[selectionTarget].SetActive(true);
         leaderboardButtons[selectionTarget2].SetActive(true);
+        
+        //===== SECRET CODE === for testing high score ===
+        if(Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            p1 += 100;
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            p2 += 100;
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            p3 += 100;
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha4))
+        {
+            p4 += 100;
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha5))
+        {
+            p5 += 100;
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha6))
+        {
+            HighScore.Instance.PutScore("P1", p1);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha7))
+        {
+            HighScore.Instance.PutScore("P2", p2);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha8))
+        {
+            HighScore.Instance.PutScore("P3", p3);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha9))
+        {
+            HighScore.Instance.PutScore("P4", p4);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha0))
+        {
+            HighScore.Instance.PutScore("P5", p5);
+        }
+        
+    }
+    void RefreshScore()
+    {
+        for (int i = 0; i < 5; i++)
+        {
+            playerName = HighScore.Instance.playerNames[i];
+            if (HighScore.Instance.hiScores[i] == 0)
+            {
+                playerName = "None";
+            }
+            GameObject.Find("Player" + (i + 1) + "Label").GetComponent<UnityEngine.UI.Text>().text
+                    = playerName;
+            GameObject.Find("Player" + (i + 1) + "Score").GetComponent<UnityEngine.UI.Text>().text
+                = HighScore.Instance.hiScores[i].ToString();
+        }
     }
 }
