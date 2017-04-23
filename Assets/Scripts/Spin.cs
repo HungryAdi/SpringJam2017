@@ -1,12 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class Spin : MonoBehaviour {
 
     public float speed = 400;
     public bool clockwise;
-    public string xyz;
+    public string[] xyz;
 
 	// Use this for initialization
 	void Start () {
@@ -15,38 +16,43 @@ public class Spin : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if(clockwise)
+        foreach(string item in xyz)
         {
-            if (xyz == "x")
+            Debug.Log(item);
+        }
+
+        if (clockwise)
+        {
+            if (xyz.Contains("x"))
             {
                 transform.Rotate(new Vector3(-(speed * Time.deltaTime), 0, 0));
             }
-            else if (xyz == "y")
+            if (xyz.Contains("y"))
             {
                 transform.Rotate(new Vector3(0, -(speed * Time.deltaTime), 0));
             }
-            else if (xyz == "z")
+            if (xyz.Contains("z"))
             {
                 transform.Rotate(new Vector3(0, 0, -(speed * Time.deltaTime)));
             }
-            
-            
+
+
         }
         else
         {
-            if (xyz == "x")
+            if (xyz.Contains("x"))
             {
                 transform.Rotate(new Vector3((speed * Time.deltaTime), 0, 0));
             }
-            else if (xyz == "y")
+            if (xyz.Contains("y"))
             {
                 transform.Rotate(new Vector3(0, (speed * Time.deltaTime), 0));
             }
-            else if (xyz == "z")
+            if (xyz.Contains("z"))
             {
                 transform.Rotate(new Vector3(0, 0, (speed * Time.deltaTime)));
             }
         }
-        
-	}
+
+    }
 }

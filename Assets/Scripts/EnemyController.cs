@@ -11,7 +11,7 @@ public class EnemyController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        speed = 4.5f;
+        speed = 7f;
         rbody = gameObject.GetComponent<Rigidbody2D>();
         sprite = gameObject.GetComponent<SpriteRenderer>();
         boxCollider = gameObject.GetComponent<BoxCollider2D>();
