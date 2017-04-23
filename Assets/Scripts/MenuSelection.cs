@@ -64,6 +64,12 @@ public class MenuSelection : MonoBehaviour {
                 else if (selectionTarget == 1)
                 {
                     leaderboardPanel.SetActive(true);
+                    for(int i=0; i<5; i++)
+                    {
+                        GameObject.Find("Player" + (i+1) + "Score").GetComponent<UnityEngine.UI.Text>().text
+                            = HighScore.Instance.hiScores[i].ToString();
+                    }
+                    
                 }
                 else if (selectionTarget == 2)
                 {
