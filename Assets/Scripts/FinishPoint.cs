@@ -33,6 +33,9 @@ public class FinishPoint : MonoBehaviour
             //Disables player movement and the timer countdown
             player.GetComponent<PlayerController>().GameOver();
             player.GetComponent<PlayerController>().enabled = false;
+
+            int score = (int) timer.GetComponent<Timer>().GetSecondsToComplete() * 100;
+            HighScore.Instance.PutScore("Player", score);
             timer.GetComponent<Timer>().enabled = false;
 
             levelPassed.SetActive(true);

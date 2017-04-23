@@ -57,4 +57,9 @@ public class Timer : MonoBehaviour
             gameObject.GetComponent<Text>().text = min.ToString("00") + ":" + seconds.ToString("00");
         }
 	}
+
+    public float GetSecondsToComplete()
+    {
+        return secondsToComplete;
+    }
 }
