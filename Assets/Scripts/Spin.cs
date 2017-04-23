@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class Spin : MonoBehaviour {
 
-    public float speed;
+    public float speed = 400;
     public bool clockwise;
+    public string xyz;
 
 	// Use this for initialization
 	void Start () {
-        speed = 400;
         //clockwise = false;
 	}
 	
@@ -17,12 +17,35 @@ public class Spin : MonoBehaviour {
 	void Update () {
         if(clockwise)
         {
-            transform.Rotate(new Vector3(0, 0, -(speed * Time.deltaTime)));
+            if (xyz == "x")
+            {
+                transform.Rotate(new Vector3(-(speed * Time.deltaTime), 0, 0));
+            }
+            else if (xyz == "y")
+            {
+                transform.Rotate(new Vector3(0, -(speed * Time.deltaTime), 0));
+            }
+            else if (xyz == "z")
+            {
+                transform.Rotate(new Vector3(0, 0, -(speed * Time.deltaTime)));
+            }
+            
             
         }
         else
         {
-            transform.Rotate(new Vector3(0, 0, speed * Time.deltaTime));
+            if (xyz == "x")
+            {
+                transform.Rotate(new Vector3((speed * Time.deltaTime), 0, 0));
+            }
+            else if (xyz == "y")
+            {
+                transform.Rotate(new Vector3(0, (speed * Time.deltaTime), 0));
+            }
+            else if (xyz == "z")
+            {
+                transform.Rotate(new Vector3(0, 0, (speed * Time.deltaTime)));
+            }
         }
         
 	}
