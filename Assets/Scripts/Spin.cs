@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class Spin : MonoBehaviour {
 
-    public float speed;
+    public float speed=400;
     public bool clockwise;
 
 	// Use this for initialization
 	void Start () {
-        speed = 400;
+        //speed = 400;
         //clockwise = false;
 	}
 	
