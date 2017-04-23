@@ -19,19 +19,20 @@ public class PlayerController : MonoBehaviour
     //Use CharacterController?  Or Rigidbody for physics?
     private CharacterController charControl;
     //Player's rigidbody
-    private Rigidbody rBody;
+    private Rigidbody2D rBody;
     //Player's animator
     private Animator anim;
     //Player's boxcollider
-    private BoxCollider boxCollider;
+    private BoxCollider2D boxCollider;
+    private bool grounded;
 
 	// Use this for initialization
 	void Start ()
     {
         charControl = gameObject.GetComponent<CharacterController>();
-        rBody = gameObject.GetComponent<Rigidbody>();
+        rBody = gameObject.GetComponent<Rigidbody2D>();
         anim = gameObject.GetComponent<Animator>();
-        boxCollider = gameObject.GetComponent<BoxCollider>();
+        boxCollider = gameObject.GetComponent<BoxCollider2D>();
 	}
 	
 	// Update is called once per frame
@@ -40,42 +41,46 @@ public class PlayerController : MonoBehaviour
         MovePlayer();
 	}
 
-    void MovePlayer ()
+    void MovePlayer()
     {
+
+        //Debug.Log(Physics2D.Raycast((Vector2)transform.position, Vector2.down, 0.1F).collider.gameObject);
+        if (Physics2D.Raycast((Vector2)transform.position, Vector2.down, 0.75F).collider == null)
+            Debug.Log("RAWR");
         float vertical = Input.GetAxis( "Vertical" );
         //If player pressed jump key (up/w) and the player is grounded (Raycast checks if they are close enough to the ground)
-        if (vertical > 0.1 && Physics.Raycast(transform.position, Vector3.down, 0.75F))
+        if (vertical > 0.1 && Physics2D.Raycast((Vector2)transform.position, Vector2.down, 0.75F).collider != null)
         {
             //Debug.Log( "jump" );
             //isJumping = true;
             anim.SetBool("isJumping", true);
             Debug.Log("isJumping");
-            boxCollider.size = new Vector3(boxCollider.size.x, .8f, boxCollider.size.z);
-            boxCollider.center = new Vector3(0.0f, 0.1f, 0.0f);
-            jumpStart = transform.position;
+            boxCollider.size = new Vector2(boxCollider.size.x, .8f);
+            boxCollider.offset = new Vector2(0.0f, 0.1f);
+            jumpStart = (Vector2)transform.position;
             Jump( jumpStart );
         }
         //Player is not jumping
-        else if (vertical <= 0.1 && Physics.Raycast(transform.position, Vector3.down, 0.75F))
+        else if (vertical <= 0.1 && Physics2D.Raycast((Vector2)transform.position, Vector2.down, 0.75F).collider != null)
         {
             anim.SetBool("isJumping", false);
-            boxCollider.size = new Vector3(boxCollider.size.x, 1.0f, boxCollider.size.z);
-            boxCollider.center = new Vector3(0.0f, 0.0f, 0.0f);
-            rBody.MovePosition(transform.position + (Vector3.right * horizSpeed) * Time.deltaTime);
+            boxCollider.size = new Vector2(boxCollider.size.x, 1.0f);
+            boxCollider.offset = new Vector2(0.0f, 0.0f);
+            rBody.MovePosition((Vector2)transform.position + (Vector2.right * horizSpeed) * Time.deltaTime);
         }
         else
         {
             //"Gravity" will take over, bringing the character back down.
-            rBody.MovePosition( transform.position + (Vector3.right * horizSpeed) * Time.deltaTime );
+            rBody.MovePosition( (Vector2)transform.position + (Vector2.right * horizSpeed) * Time.deltaTime );
         }
     }
 
     //Rudimentary jump mechanics - may change
-    void Jump ( Vector3 start )
+    void Jump( Vector2 start )
     {
-        //Debug.Log("JUMPING");
-        rBody.MovePosition( transform.position + (Vector3.right * horizSpeed) * Time.deltaTime );
-        rBody.velocity = rBody.velocity + Vector3.up * vertSpeed;
+        Debug.Log("JUMPING");
+        rBody.MovePosition(transform.position + (Vector3.right * horizSpeed) * Time.deltaTime );
+        rBody.AddForce(Vector2.up*vertSpeed*100);
     }
 
     //Switches the player's animation when the game is over

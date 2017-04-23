@@ -5,16 +5,16 @@ using UnityEngine;
 public class EnemyController : MonoBehaviour {
 
     private float speed;
-    private Rigidbody rbody;
+    private Rigidbody2D rbody;
     private SpriteRenderer sprite;
-    private BoxCollider boxCollider;
+    private BoxCollider2D boxCollider;
 
 	// Use this for initialization
 	void Start () {
         speed = 1.9f;
-        rbody = gameObject.GetComponent<Rigidbody>();
+        rbody = gameObject.GetComponent<Rigidbody2D>();
         sprite = gameObject.GetComponent<SpriteRenderer>();
-        boxCollider = gameObject.GetComponent<BoxCollider>();
+        boxCollider = gameObject.GetComponent<BoxCollider2D>();
 	}
 	
 	// Update is called once per frame
@@ -24,12 +24,12 @@ public class EnemyController : MonoBehaviour {
 
     void MoveRight()
     {
-        rbody.MovePosition(transform.position + (Vector3.right * speed) * Time.deltaTime);
+        rbody.MovePosition( (Vector2)transform.position + (Vector2.right * speed) * Time.deltaTime);
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (other.gameObject.tag == "Obstacle")
+        if (collision.gameObject.tag == "Obstacle")
         {
             sprite.color = new Color(125, 125, 125, 125);
         } 
