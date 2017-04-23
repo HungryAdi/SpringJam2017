@@ -24,6 +24,8 @@ public class PlayerController : MonoBehaviour
     private Animator anim;
     //Player's boxcollider
     private BoxCollider2D boxCollider;
+    //public timer
+    public GameObject timer;
     private bool grounded;
     public bool started = false;
 
@@ -40,7 +42,7 @@ public class PlayerController : MonoBehaviour
         boxCollider = gameObject.GetComponent<BoxCollider2D>();
         vertical = 0;
         horizSpeed = 7f;
-        anim.SetBool("started", false);
+        timer.SetActive(false);
         StartCoroutine("countdownto3");
     }
 
@@ -143,8 +145,8 @@ public class PlayerController : MonoBehaviour
     {
         yield return new WaitForSeconds(3f);
         started = true;
-        anim.SetBool("started", true);
         yield return new WaitForSeconds(0.5f);
         GameObject.Find("CountdownAnim").SetActive(false);
+        timer.SetActive(true);
     }
 }
