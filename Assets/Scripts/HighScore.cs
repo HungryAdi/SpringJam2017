@@ -6,9 +6,11 @@ public class HighScore : MonoBehaviour {
 
 
     public static HighScore Instance;
-    string[] playerNames;
-    public int[] hiScores;
-    string leaderCode;
+    [System.NonSerialized]
+    public string[] playerNames = new string[5];
+    [System.NonSerialized]
+    public int[] hiScores = new int[5];
+    string leaderCodeName, leaderCodeScore;
     
 
     // Use this for initialization
@@ -32,35 +34,43 @@ public class HighScore : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+        
 		for(int i=0; i<5; i++)
         {
-            leaderCode = "Leader" + i;
-            hiScores[i] = PlayerPrefs.GetInt(leaderCode);
-            playerNames[i] = PlayerPrefs.GetString(leaderCode);
+            leaderCodeName = "LeaderName" + i;
+            leaderCodeScore = "LeaderScore" + i;
+            playerNames[i] = PlayerPrefs.GetString(leaderCodeName);
+            hiScores[i] = PlayerPrefs.GetInt(leaderCodeScore);
+            //Debug.Log("Get>> " + leaderCodeName + ":" + playerNames[i] + " | " + leaderCodeScore + ":" + hiScores[i]);
         }
 	}
 
-    int PutScore(string name, int score)
+    public int PutScore(string name, int score)
     {
         int position = -1;
         int tempScore;
+        string tempName;
         for(int i=0; i<5; i++)
         {
-            if (score > hiScores[position])
+            if (score > hiScores[i])
             {
                 position = i;
             }
             if (position != -1)
             {
-                tempScore = hiScores[position];
-                hiScores[position] = score;
+                tempScore = hiScores[i];
+                hiScores[i] = score;
                 score = tempScore;
+
+                tempName = playerNames[i];
+                playerNames[i] = name;
+                name = tempName;
             }
         }
         return position;
     }
 
-    int CheckScore(int score)
+    public int CheckScore(int score)
     {
         for (int i = 0; i < 5; i++)
             if (score > hiScores[i])
@@ -68,23 +78,29 @@ public class HighScore : MonoBehaviour {
         return -1;
     }
 
-    void SaveScore()
+    public void SaveScore()
     {
+        
         for(int i=0; i<5; i++)
         {
-            leaderCode = "Leader" + i;
-            PlayerPrefs.SetString(leaderCode, playerNames[i]);
-            PlayerPrefs.SetInt(leaderCode,hiScores[i]);
+            
+            leaderCodeName = "LeaderName" + i;
+            leaderCodeScore = "LeaderScore" + i;
+            
+            PlayerPrefs.SetString(leaderCodeName, playerNames[i]);
+            PlayerPrefs.SetInt(leaderCodeScore, hiScores[i]);
+            //Debug.Log("Set>> " + leaderCodeName + ":" + playerNames[i] + " | " + leaderCodeScore + ":" + hiScores[i]);
         }
         PlayerPrefs.Save();
     }
 
-    void ResetScore()
+    public void ResetScore()
     {
         for (int i = 0; i < 5; i++)
         {
             playerNames[i] = "Player " + (i + 1);
             hiScores[i] = 0;
         }
+        SaveScore();
     }
 }

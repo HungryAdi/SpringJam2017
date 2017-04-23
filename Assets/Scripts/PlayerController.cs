@@ -47,7 +47,7 @@ public class PlayerController : MonoBehaviour
 
     void MovePlayer()
     {
-        rBody.velocity = new Vector2(1.8f, rBody.velocity.y);
+        rBody.velocity = new Vector2(4f, rBody.velocity.y);
         //Debug.Log(Physics2D.Raycast((Vector2)transform.position, Vector2.down, 0.1F).collider.gameObject);
         if (Physics2D.Raycast((Vector2)transform.position, Vector2.down, 0.75F).collider == null)
             Debug.Log("RAWR");
@@ -68,7 +68,7 @@ public class PlayerController : MonoBehaviour
         else if (vertical <= 0.1 && Physics2D.Raycast((Vector2)transform.position, Vector2.down, 0.75F).collider != null)
         {
             anim.SetBool("isJumping", false);
-            boxCollider.size = new Vector2(boxCollider.size.x, 1.0f);
+            boxCollider.size = new Vector2(boxCollider.size.x, 1.4f);
             boxCollider.offset = new Vector2(0.0f, 0.0f);
             //rBody.MovePosition((Vector2)transform.position + (Vector2.right * horizSpeed) * Time.deltaTime);
         }
@@ -85,7 +85,7 @@ public class PlayerController : MonoBehaviour
     {
         Debug.Log("JUMPING");
         //rBody.MovePosition(transform.position + (Vector3.right * horizSpeed) * Time.deltaTime );
-        rBody.AddForce(new Vector2(0, 140));
+        rBody.AddForce(new Vector2(0, 180));
     }
 
     //Switches the player's animation when the game is over
