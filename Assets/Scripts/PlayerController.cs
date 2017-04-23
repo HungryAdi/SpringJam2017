@@ -38,7 +38,7 @@ public class PlayerController : MonoBehaviour
         anim = gameObject.GetComponent<Animator>();
         boxCollider = gameObject.GetComponent<BoxCollider2D>();
         vertical = 0;
-        horizSpeed = 4f;
+        horizSpeed = 7f;
 
     }
 
@@ -122,7 +122,7 @@ public class PlayerController : MonoBehaviour
         {
             Debug.Log("DAMAGED");
             anim.SetBool("damaged", true);
-            horizSpeed = 2.5f;
+            horizSpeed = 4f;
             StartCoroutine("damageEnd");
         }
     }
@@ -131,6 +131,6 @@ public class PlayerController : MonoBehaviour
     {
         yield return new WaitForSeconds(0.75f);
         anim.SetBool("damaged", false);
-        horizSpeed = 4f;
+        horizSpeed = 7f;
     }
 }
