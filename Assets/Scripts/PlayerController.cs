@@ -29,17 +29,17 @@ public class PlayerController : MonoBehaviour
     private float vertical;
 
     // Use this for initialization
-    void Start ()
+    void Start()
     {
         charControl = gameObject.GetComponent<CharacterController>();
         rBody = gameObject.GetComponent<Rigidbody2D>();
         anim = gameObject.GetComponent<Animator>();
         boxCollider = gameObject.GetComponent<BoxCollider2D>();
         vertical = 0;
-        
+
     }
-	
-	// Update is called once per frame
+
+    // Update is called once per frame
     private void FixedUpdate()
     {
         MovePlayer();
@@ -51,7 +51,7 @@ public class PlayerController : MonoBehaviour
         //Debug.Log(Physics2D.Raycast((Vector2)transform.position, Vector2.down, 0.1F).collider.gameObject);
         if (Physics2D.Raycast((Vector2)transform.position, Vector2.down, 0.75F).collider == null)
             Debug.Log("RAWR");
-        vertical = Input.GetAxis( "Vertical" );
+        vertical = Input.GetAxis("Vertical");
         //If player pressed jump key (up/w) and the player is grounded (Raycast checks if they are close enough to the ground)
         if (vertical > 0.1 && Physics2D.Raycast((Vector2)transform.position, Vector2.down, 0.75F).collider != null)
         {
@@ -62,7 +62,7 @@ public class PlayerController : MonoBehaviour
             boxCollider.size = new Vector2(boxCollider.size.x, .8f);
             boxCollider.offset = new Vector2(0.0f, 0.1f);
             jumpStart = (Vector2)transform.position;
-            Jump( jumpStart );
+            Jump(jumpStart);
         }
         //Player is not jumping
         else if (vertical <= 0.1 && Physics2D.Raycast((Vector2)transform.position, Vector2.down, 0.75F).collider != null)
@@ -81,7 +81,7 @@ public class PlayerController : MonoBehaviour
     }
 
     //Rudimentary jump mechanics - may change
-    void Jump( Vector2 start )
+    void Jump(Vector2 start)
     {
         Debug.Log("JUMPING");
         //rBody.MovePosition(transform.position + (Vector3.right * horizSpeed) * Time.deltaTime );
@@ -92,5 +92,21 @@ public class PlayerController : MonoBehaviour
     public void GameOver()
     {
         anim.SetBool("GameOver", true);
+    }
+
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Hazards")
+        {
+            Debug.Log("DAMAGED");
+            anim.SetBool("damaged", true);
+            StartCoroutine("damageEnd");
+        }
+    }
+
+    IEnumerator damageEnd()
+    {
+        yield return new WaitForSeconds(0.75f);
+        anim.SetBool("damaged", false);
     }
 }
