@@ -26,6 +26,8 @@ public class PlayerController : MonoBehaviour
     private BoxCollider2D boxCollider;
     private bool grounded;
 
+    EdgeCollider2D rightEdge;
+
     private float vertical;
 
     // Use this for initialization
@@ -48,7 +50,13 @@ public class PlayerController : MonoBehaviour
 
     void MovePlayer()
     {
-        if (Physics2D.Raycast((Vector2)transform.position, Vector2.right, 0.75F).collider != null)
+        Vector2 boxColliderEnd = boxCollider.bounds.size / 1.99999F;
+        Debug.DrawRay((Vector2)transform.position + boxColliderEnd, Vector2.right);
+        if (Physics2D.Raycast((Vector2)transform.position + boxColliderEnd, Vector2.right, 0.75F).collider != null)
+        {
+            rBody.velocity = new Vector2(0, rBody.velocity.y);
+        }
+        else if (Physics2D.Raycast((Vector2)transform.position - boxColliderEnd, Vector2.right, 0.75F).collider != null)
         {
             rBody.velocity = new Vector2(0, rBody.velocity.y);
         }
