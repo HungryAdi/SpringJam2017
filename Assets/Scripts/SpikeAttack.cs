@@ -7,6 +7,8 @@ public class SpikeAttack : MonoBehaviour
     //Will the flame start out as big?
     public bool startMax;
 
+    private bool played = false;
+
     //The part of the spikes that scales
     GameObject spikes;
     //Whether the "spikes" are growing or retracting
@@ -38,6 +40,15 @@ public class SpikeAttack : MonoBehaviour
 	void Update ()
     {
         spikes.transform.localScale += new Vector3 (0, Time.deltaTime, 0) * spikeGrowth;
+        if (Camera.main.WorldToViewportPoint(transform.position).x < 1f) {
+            if (played == false) {
+                gameObject.GetComponent<AudioSource>().PlayOneShot(gameObject.GetComponent<AudioSource>().clip);
+                played = true;
+            }
+        }
+        if (Camera.main.WorldToViewportPoint(transform.position).x < 0f) {
+            Destroy(gameObject);
+        }
 	}
 
     IEnumerator SpikeMovement()
