@@ -56,13 +56,27 @@ public class PlayerController : MonoBehaviour
     {
         Vector2 boxColliderEnd = boxCollider.bounds.size / 1.99999F;
         //Debug.DrawRay((Vector2)transform.position + boxColliderEnd, Vector2.right);
-        if (Physics2D.Raycast((Vector2)transform.position + boxColliderEnd, Vector2.right, 0.75F).collider != null)
+        if (Physics2D.Raycast((Vector2)transform.position + boxColliderEnd, Vector2.right, 0.1F).collider != null)
         {
             rBody.velocity = new Vector2(0, rBody.velocity.y);
+            Debug.Log(Physics2D.Raycast((Vector2)transform.position + boxColliderEnd, Vector2.right, 0.1F).collider.gameObject);
+            anim.SetBool("damaged", true);
+            horizSpeed = 4f;
+            StartCoroutine("damageEnd");
+            
         }
-        else if (Physics2D.Raycast((Vector2)transform.position - boxColliderEnd, Vector2.right, 0.75F).collider != null)
+        else if (Physics2D.Raycast((Vector2)transform.position - boxColliderEnd, Vector2.right, 0.1F).collider != null)
         {
-            rBody.velocity = new Vector2(0, rBody.velocity.y);
+            if (Physics2D.Raycast((Vector2)transform.position - boxColliderEnd, Vector2.right, 0.1F).collider.gameObject.tag == "hazards")
+            {
+
+                rBody.velocity = new Vector2(0, rBody.velocity.y);
+                Debug.Log(Physics2D.Raycast((Vector2)transform.position + boxColliderEnd, Vector2.right, 0.1F).collider.gameObject);
+                anim.SetBool("damaged", true);
+                horizSpeed = 4f;
+                StartCoroutine("damageEnd");
+            }
+            
         }
         else
         {
