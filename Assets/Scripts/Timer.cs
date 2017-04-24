@@ -47,6 +47,7 @@ public class Timer : MonoBehaviour
             failedLevel.SetActive(true);
             //Debug.Log("Level failed");
             this.enabled = false;
+            gameObject.GetComponent<AudioSource>().PlayOneShot(gameObject.GetComponent<AudioSource>().clip);
         }
         else
         {
@@ -56,6 +57,7 @@ public class Timer : MonoBehaviour
             //gameObject.GetComponent<Text>().text = secondsToComplete.ToString();
             gameObject.GetComponent<Text>().text = min.ToString("00") + ":" + seconds.ToString("00");
         }
+
 	}
 
     public float GetSecondsToComplete()

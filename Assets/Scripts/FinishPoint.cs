@@ -10,6 +10,7 @@ public class FinishPoint : MonoBehaviour
     public GameObject timer;
     //The level passed menu
     public GameObject levelPassed;
+    public GameObject Pentagram;
 
 	// Use this for initialization
 	void Start ()
@@ -37,6 +38,7 @@ public class FinishPoint : MonoBehaviour
             //player.GetComponent<PlayerController>().GameOver();
             //Debug.Log("RAAWR2");
             player.GetComponent<PlayerController>().enabled = false;
+            Pentagram.transform.position = this.transform.position;
 
             int score = (int) timer.GetComponent<Timer>().GetSecondsToComplete() * 100;
             HighScore.Instance.PutScore("Player", score);
