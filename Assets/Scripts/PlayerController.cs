@@ -46,6 +46,7 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     private void FixedUpdate()
     {
+        Debug.Log(started);
         if (started)
         {
             MovePlayer();
@@ -59,7 +60,7 @@ public class PlayerController : MonoBehaviour
         if (Physics2D.Raycast((Vector2)transform.position + boxColliderEnd, Vector2.right, 0.1F).collider != null)
         {
             rBody.velocity = new Vector2(0, rBody.velocity.y);
-            Debug.Log(Physics2D.Raycast((Vector2)transform.position + boxColliderEnd, Vector2.right, 0.1F).collider.gameObject);
+            Debug.Log("DAMAGED");
             anim.SetBool("damaged", true);
             horizSpeed = 4f;
             StartCoroutine("damageEnd");
@@ -69,9 +70,8 @@ public class PlayerController : MonoBehaviour
         {
             if (Physics2D.Raycast((Vector2)transform.position - boxColliderEnd, Vector2.right, 0.1F).collider.gameObject.tag == "hazards")
             {
-
                 rBody.velocity = new Vector2(0, rBody.velocity.y);
-                Debug.Log(Physics2D.Raycast((Vector2)transform.position + boxColliderEnd, Vector2.right, 0.1F).collider.gameObject);
+                Debug.Log("DAMAGED");
                 anim.SetBool("damaged", true);
                 horizSpeed = 4f;
                 StartCoroutine("damageEnd");

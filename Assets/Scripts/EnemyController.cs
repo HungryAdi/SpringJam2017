@@ -8,7 +8,7 @@ public class EnemyController : MonoBehaviour {
     private SpriteRenderer sprite;
     private BoxCollider2D boxCollider;
     public bool started = false;
-    public float speed = 6.8f;
+    public float speed = 7.2f;
 
 	// Use this for initialization
 	void Start () {
