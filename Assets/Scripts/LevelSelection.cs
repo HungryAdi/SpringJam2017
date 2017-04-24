@@ -75,17 +75,17 @@ public class LevelSelection : MonoBehaviour {
         
         if (transform.position.x - targetList[targetSelection].x > 0)
         {
-            Debug.Log("Left");
+            //Debug.Log("Left");
             anim.SetInteger("Direction", -1);
         }
         else if(transform.position.x - targetList[targetSelection].x < 0)
         {
-            Debug.Log("Right");
+            //Debug.Log("Right");
             anim.SetInteger("Direction", 1);
         }
         else
         {
-            Debug.Log("OK");
+            //Debug.Log("OK");
             anim.SetInteger("Direction", 0);
         }
     }
