@@ -40,7 +40,6 @@ public class WaveEquation : MonoBehaviour
             reverse = -reverse;
             startPos = transform.position;
         }
-
 	}
 
     /*void OnTriggerEnter (Collider other)
