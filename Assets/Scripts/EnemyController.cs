@@ -4,15 +4,14 @@ using UnityEngine;
 
 public class EnemyController : MonoBehaviour {
 
-    private float speed;
     private Rigidbody2D rbody;
     private SpriteRenderer sprite;
     private BoxCollider2D boxCollider;
     public bool started = false;
+    public float speed = 6.8f;
 
 	// Use this for initialization
 	void Start () {
-        speed = 7.34f;
         rbody = gameObject.GetComponent<Rigidbody2D>();
         sprite = gameObject.GetComponent<SpriteRenderer>();
         boxCollider = gameObject.GetComponent<BoxCollider2D>();

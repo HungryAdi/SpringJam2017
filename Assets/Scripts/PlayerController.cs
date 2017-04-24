@@ -16,8 +16,6 @@ public class PlayerController : MonoBehaviour
     //Keeps track of the position where the player's jump started - used for jump height
     private Vector3 jumpStart;
 
-    //Use CharacterController?  Or Rigidbody for physics?
-    private CharacterController charControl;
     //Player's rigidbody
     private Rigidbody2D rBody;
     //Player's animator
@@ -36,7 +34,6 @@ public class PlayerController : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        charControl = gameObject.GetComponent<CharacterController>();
         rBody = gameObject.GetComponent<Rigidbody2D>();
         anim = gameObject.GetComponent<Animator>();
         boxCollider = gameObject.GetComponent<BoxCollider2D>();
