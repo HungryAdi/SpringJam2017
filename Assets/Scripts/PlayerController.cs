@@ -134,12 +134,6 @@ public class PlayerController : MonoBehaviour
         anim.SetBool("GameOver", true);
     }
 
-    private void OnCollisionEnter2D(Collision2D collision) {
-        if (collision.gameObject.tag == "Hazards") {
-        gameObject.GetComponent<AudioSource>().PlayOneShot(gameObject.GetComponent<AudioSource>().clip);
-        }
-    }
-
     private void OnCollisionStay2D(Collision2D collision)
     {
         if (collision.gameObject.tag == "Hazards")
