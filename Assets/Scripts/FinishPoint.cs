@@ -33,9 +33,9 @@ public class FinishPoint : MonoBehaviour
                 Debug.Log("THIS IS NULL!");
 
             //Disables player movement and the timer countdown
-            Debug.Log("RAAWR");
+            //Debug.Log("RAAWR");
             //player.GetComponent<PlayerController>().GameOver();
-            Debug.Log("RAAWR2");
+            //Debug.Log("RAAWR2");
             player.GetComponent<PlayerController>().enabled = false;
 
             int score = (int) timer.GetComponent<Timer>().GetSecondsToComplete() * 100;
@@ -43,7 +43,7 @@ public class FinishPoint : MonoBehaviour
             timer.GetComponent<Timer>().enabled = false;
 
             levelPassed.SetActive(true);
-            Debug.Log("Game Finished");
+            //Debug.Log("Game Finished");
         }
     }
 }

@@ -45,7 +45,7 @@ public class Timer : MonoBehaviour
             finishPoint.GetComponent<FinishPoint>().enabled = false;
             gameObject.GetComponent<Text>().text = "00:00";
             failedLevel.SetActive(true);
-            Debug.Log("Level failed");
+            //Debug.Log("Level failed");
             this.enabled = false;
         }
         else
