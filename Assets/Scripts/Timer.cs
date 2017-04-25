@@ -47,7 +47,7 @@ public class Timer : MonoBehaviour
             failedLevel.SetActive(true);
             //Debug.Log("Level failed");
             this.enabled = false;
-            gameObject.GetComponent<AudioSource>().PlayOneShot(gameObject.GetComponent<AudioSource>().clip);
+            //gameObject.GetComponent<AudioSource>().PlayOneShot(gameObject.GetComponent<AudioSource>().clip);
         }
         else
         {
